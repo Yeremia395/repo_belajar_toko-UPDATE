@@ -29,3 +29,5 @@ Route::get('/orders{id}', 'OrdersController@detail');
 Route::post('/orders', 'OrdersController@store');
 Route::put('/orders/{id}', 'OrdersController@update');
 
+Route::delete('/orders/{id}', 'OrdersController@destroy');
+
