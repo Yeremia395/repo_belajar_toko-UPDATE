@@ -37,7 +37,41 @@ class ProductController extends Controller
     public function show()
     {
         return Product::all();
-    }
-
+	}
+	public function update ($id, Request $request)
+    {
+        $validator=Validator::make($request->all(),
+        [
+			
+            'nama_produk'=> 'required',
+            'harga_produk' => 'required'
     
+        ]);
+        if($validator->fails()){
+            return Response()->json($validator->errors());
+        }
+        $ubah = Orders::where('id',$id)->update([
+            'nama_produk' => $request->nama_produk,
+            'harga_produk' => $request->harga_produk,
+            
+        ]);
+
+        if($ubah){
+            return Response()->json(['status'=>1]);
+        }
+        else{
+            return Response()->json(['status'=>0]);
+        }
+
+    }
+	public function destroy ($id)
+    {
+        $hapus = Product::where('id', $id)->delete();
+        if($hapus){
+            return Response()->json(['status' => 1]);
+        }
+        else {
+            return Response()->json(['status' => 0]);
+        }
+    }
 }
